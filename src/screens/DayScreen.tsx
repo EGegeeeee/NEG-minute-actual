@@ -77,8 +77,9 @@ export default function DayScreen({
 
       <Pressable
         onPress={() =>
-          navigation.navigate('Session', {
+          navigation.navigate('Measure', {
             day: exercise.day,
+            phase: 'pre',
           })
         }
         style={{

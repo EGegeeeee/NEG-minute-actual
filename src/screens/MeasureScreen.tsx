@@ -11,7 +11,11 @@ export default function MeasureScreen({
   route,
   navigation,
 }: any) {
-  const { day } = route.params;
+  const {
+    day,
+    phase = 'pre',
+    preBpm,
+  } = route.params || {};
 
   const [measuring, setMeasuring] =
     useState(false);
@@ -23,14 +27,27 @@ export default function MeasureScreen({
     if (!measuring) return;
 
     if (secondsLeft <= 0) {
-      navigation.navigate('Result', {
-        day,
-      });
+      const fakeBpm =
+        Math.floor(Math.random() * 30) + 70;
+
+      if (phase === 'pre') {
+        navigation.navigate('Session', {
+          day,
+          preBpm: fakeBpm,
+        });
+      } else {
+        navigation.navigate('Result', {
+          day,
+          preBpm,
+          postBpm: fakeBpm,
+        });
+      }
+
       return;
     }
 
     const timer = setTimeout(() => {
-      setSecondsLeft((prev) => prev - 1);
+      setSecondsLeft(prev => prev - 1);
     }, 1000);
 
     return () => clearTimeout(timer);
@@ -39,6 +56,8 @@ export default function MeasureScreen({
     secondsLeft,
     navigation,
     day,
+    phase,
+    preBpm,
   ]);
 
   return (
@@ -57,8 +76,19 @@ export default function MeasureScreen({
         <Text
           style={{
             color: 'white',
-            fontSize: 20,
+            fontSize: 22,
             fontWeight: 'bold',
+          }}
+        >
+          {phase === 'pre'
+            ? 'PRE MEASUREMENT'
+            : 'POST MEASUREMENT'}
+        </Text>
+
+        <Text
+          style={{
+            color: 'white',
+            marginTop: 10,
           }}
         >
           Place your finger over the camera and flash
@@ -82,7 +112,11 @@ export default function MeasureScreen({
             borderRadius: 12,
           }}
         >
-          <Text>Start Measurement</Text>
+          <Text>
+            Start {phase === 'pre'
+              ? 'Pre'
+              : 'Post'} Measurement
+          </Text>
         </Pressable>
       ) : (
         <View
