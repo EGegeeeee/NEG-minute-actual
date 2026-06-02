@@ -1,8 +1,8 @@
 import React from 'react';
-import {
-  ConvexProvider,
-  ConvexReactClient,
-} from 'convex/react';
+import { ConvexReactClient } from 'convex/react';
+
+import { ConvexAuthProvider } from '@convex-dev/auth/react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import AppNavigator from './src/navigation/AppNavigator';
 
@@ -12,8 +12,23 @@ const convex = new ConvexReactClient(
 
 export default function App() {
   return (
-    <ConvexProvider client={convex}>
+    <ConvexAuthProvider
+      client={convex}
+      storage={{
+        getItem: key =>
+          AsyncStorage.getItem(key),
+
+        setItem: (key, value) =>
+          AsyncStorage.setItem(
+            key,
+            value
+          ),
+
+        removeItem: key =>
+          AsyncStorage.removeItem(key),
+      }}
+    >
       <AppNavigator />
-    </ConvexProvider>
+    </ConvexAuthProvider>
   );
 }
