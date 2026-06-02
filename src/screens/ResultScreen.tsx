@@ -7,15 +7,32 @@ import {
 
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
+import { exercises } from '../constants/exercises';
 
 export default function ResultScreen({
   route,
   navigation,
 }: any) {
-  const { day } = route.params;
+  const {
+    day,
+    preBpm,
+    postBpm,
+  } = route.params;
 
   const markCompleted =
     useMutation(api.progress.markCompleted);
+
+  const saveSession =
+    useMutation(api.sessions.saveSession);
+
+
+  const exercise =
+    exercises.find(
+      e => e.day === Number(day)
+    );
+
+  const difference =
+    postBpm - preBpm;
 
   return (
     <View
@@ -30,7 +47,7 @@ export default function ResultScreen({
         style={{
           fontSize: 32,
           fontWeight: 'bold',
-          marginBottom: 20,
+          marginBottom: 30,
         }}
       >
         Day {day} Complete
@@ -38,24 +55,46 @@ export default function ResultScreen({
 
       <Text
         style={{
-          fontSize: 20,
+          fontSize: 24,
           marginBottom: 10,
         }}
       >
-        Pre BPM: --
+        Pre BPM: {preBpm}
       </Text>
 
       <Text
         style={{
-          fontSize: 20,
-          marginBottom: 30,
+          fontSize: 24,
+          marginBottom: 10,
         }}
       >
-        Post BPM: --
+        Post BPM: {postBpm}
+      </Text>
+
+      <Text
+        style={{
+          fontSize: 24,
+          marginBottom: 30,
+          fontWeight: 'bold',
+        }}
+      >
+        Difference: +{difference}
       </Text>
 
       <Pressable
         onPress={async () => {
+          await saveSession({
+            username: 'Setsen',
+            day,
+            exercise:
+              exercise?.title ??
+              'Unknown Exercise',
+            preBpm,
+            postBpm,
+            completedAt:
+                new Date().toISOString(),
+          });
+
           await markCompleted({
             username: 'Setsen',
             day,
