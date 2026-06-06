@@ -1,52 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   View,
   Text,
   Pressable,
 } from 'react-native';
 
+import { useSessionEngine } from "../session/useSessionEngine";
 import { exercises } from '../constants/exercises';
 
 export default function SessionScreen({
   route,
   navigation,
 }: any) {
-  const { day, preBpm } = route.params;
+  const { day } = route.params;
 
   const exercise = exercises.find(
     e => e.day === Number(day)
   );
 
-  const [started, setStarted] =
-    useState(false);
+  const {
+    state,
+    startSession,
+    endExercise,
+    setPreBpm,
+    setPostBpm,
+  } = useSessionEngine();
 
-  const [secondsLeft, setSecondsLeft] =
-    useState(exercise?.duration ?? 60);
-
+  // RECEIVE BPM FROM MEASURE SCREEN
   useEffect(() => {
-    if (!started) return;
+    if (route.params?.measuredBpm) {
+      const bpm = route.params.measuredBpm;
 
-    if (secondsLeft <= 0) {
-      navigation.navigate('Measure', {
-        day,
-        phase: 'post',
-        preBpm,
-      });
-      return;
+      if (route.params.phase === "pre") {
+        setPreBpm(bpm);
+      }
+
+      if (route.params.phase === "post") {
+        setPostBpm(bpm);
+      }
     }
-
-    const timer = setTimeout(() => {
-      setSecondsLeft(prev => prev - 1);
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [
-    started,
-    secondsLeft,
-    navigation,
-    day,
-    preBpm,
-  ]);
+  }, [route.params]);
 
   if (!exercise) {
     return (
@@ -65,52 +58,75 @@ export default function SessionScreen({
         padding: 24,
       }}
     >
-      <Text
-        style={{
-          fontSize: 28,
-          fontWeight: 'bold',
-          marginBottom: 20,
-        }}
-      >
+      <Text style={{ fontSize: 28, fontWeight: 'bold', marginBottom: 20 }}>
         {exercise.title}
       </Text>
 
-      <Text
-        style={{
-          textAlign: 'center',
-          marginBottom: 30,
-        }}
-      >
+      <Text style={{ textAlign: 'center', marginBottom: 30 }}>
         {exercise.description}
       </Text>
 
-      <Text
-        style={{
-          marginBottom: 20,
-        }}
-      >
-        Pre BPM: {preBpm}
+      <Text style={{ marginBottom: 20 }}>
+        State: {state}
       </Text>
 
-      {!started ? (
+      {/* IDLE */}
+      {state === "IDLE" && (
         <Pressable
-          onPress={() => setStarted(true)}
-          style={{
-            padding: 16,
-            borderWidth: 1,
-          }}
+          onPress={() =>
+            navigation.navigate("Measure", {
+              day,
+              phase: "pre",
+            })
+          }
+          style={{ padding: 16, borderWidth: 1 }}
+        >
+          <Text>Start Pre Measure</Text>
+        </Pressable>
+      )}
+
+      {/* PRE_DONE → START SESSION */}
+      {state === "PRE_MEASURE" && (
+        <Pressable
+          onPress={startSession}
+          style={{ padding: 16, borderWidth: 1 }}
         >
           <Text>Start Exercise</Text>
         </Pressable>
-      ) : (
-        <Text
-          style={{
-            fontSize: 72,
-            fontWeight: 'bold',
-          }}
+      )}
+
+      {/* EXERCISE */}
+      {state === "EXERCISE" && (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("Measure", {
+              day,
+              phase: "post",
+            })
+          }
+          style={{ padding: 16, borderWidth: 1 }}
         >
-          {secondsLeft}
+          <Text>Finish → Post Measure</Text>
+        </Pressable>
+      )}
+
+      {/* POST */}
+      {state === "POST_MEASURE" && (
+        <Text style={{ fontSize: 20 }}>
+          Measuring recovery...
         </Text>
+      )}
+
+      {/* RESULT */}
+      {state === "RESULT" && (
+        <Pressable
+          onPress={() =>
+            navigation.navigate("Result", { day })
+          }
+          style={{ padding: 16, borderWidth: 1 }}
+        >
+          <Text>View Result</Text>
+        </Pressable>
       )}
     </View>
   );

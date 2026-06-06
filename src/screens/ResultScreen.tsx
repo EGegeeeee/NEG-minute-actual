@@ -7,32 +7,39 @@ import {
 
 import { useMutation } from 'convex/react';
 import { api } from '../../convex/_generated/api';
-import { exercises } from '../constants/exercises';
+
+import { useSessionEngine } from "../session/useSessionEngine";
 
 export default function ResultScreen({
   route,
   navigation,
 }: any) {
-  const {
-    day,
-    preBpm,
-    postBpm,
-  } = route.params;
+  const { day } = route.params;
 
-  const markCompleted =
-    useMutation(api.progress.markCompleted);
+  const saveSession = useMutation(api.sessions.saveSession);
+  const markCompleted = useMutation(api.progress.markCompleted);
 
-  const saveSession =
-    useMutation(api.sessions.saveSession);
+  const { getResult } = useSessionEngine();
 
+  const { preBpm, postBpm } = getResult();
 
-  const exercise =
-    exercises.find(
-      e => e.day === Number(day)
-    );
+  const difference = postBpm - preBpm;
 
-  const difference =
-    postBpm - preBpm;
+  const handleSave = async () => {
+    await saveSession({
+      day,
+      exercise: "Exercise",
+      preBpm,
+      postBpm,
+      completedAt: new Date().toISOString(),
+    });
+
+    await markCompleted({
+      day,
+    });
+
+    navigation.replace("Home");
+  };
 
   return (
     <View
@@ -43,71 +50,31 @@ export default function ResultScreen({
         padding: 24,
       }}
     >
-      <Text
-        style={{
-          fontSize: 32,
-          fontWeight: 'bold',
-          marginBottom: 30,
-        }}
-      >
+      <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 30 }}>
         Day {day} Complete
       </Text>
 
-      <Text
-        style={{
-          fontSize: 24,
-          marginBottom: 10,
-        }}
-      >
+      <Text style={{ fontSize: 22 }}>
         Pre BPM: {preBpm}
       </Text>
 
-      <Text
-        style={{
-          fontSize: 24,
-          marginBottom: 10,
-        }}
-      >
+      <Text style={{ fontSize: 22 }}>
         Post BPM: {postBpm}
       </Text>
 
-      <Text
-        style={{
-          fontSize: 24,
-          marginBottom: 30,
-          fontWeight: 'bold',
-        }}
-      >
+      <Text style={{ fontSize: 26, fontWeight: 'bold', marginTop: 20 }}>
         Difference: +{difference}
       </Text>
 
       <Pressable
-        onPress={async () => {
-          await saveSession({
-            username: 'Setsen',
-            day,
-            exercise:
-              exercise?.title ??
-              'Unknown Exercise',
-            preBpm,
-            postBpm,
-            completedAt:
-                new Date().toISOString(),
-          });
-
-          await markCompleted({
-            username: 'Setsen',
-            day,
-          });
-
-          navigation.navigate('Home');
-        }}
+        onPress={handleSave}
         style={{
+          marginTop: 30,
           padding: 16,
           borderWidth: 1,
         }}
       >
-        <Text>Save & Return Home</Text>
+        <Text>Save Session</Text>
       </Pressable>
     </View>
   );

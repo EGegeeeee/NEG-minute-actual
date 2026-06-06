@@ -1,9 +1,8 @@
-import { v } from "convex/values";
 import { mutation } from "./_generated/server";
+import { v } from "convex/values";
 
 export const saveSession = mutation({
   args: {
-    username: v.string(),
     day: v.number(),
     exercise: v.string(),
     preBpm: v.number(),
@@ -12,6 +11,18 @@ export const saveSession = mutation({
   },
 
   handler: async (ctx, args) => {
-    return await ctx.db.insert("sessions", args);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not authenticated");
+
+    const userId = identity.subject;
+
+    return await ctx.db.insert("sessions", {
+      userId,
+      day: args.day,
+      exercise: args.exercise,
+      preBpm: args.preBpm,
+      postBpm: args.postBpm,
+      completedAt: args.completedAt,
+    });
   },
 });

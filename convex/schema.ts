@@ -8,20 +8,20 @@ export default defineSchema({
   users: defineTable({
     email: v.string(),
     username: v.optional(v.string()),
-  }),
+  }).index("by_email", ["email"]),
 
   sessions: defineTable({
-    username: v.string(),
+    userId: v.string(),
     day: v.number(),
     exercise: v.string(),
     preBpm: v.number(),
     postBpm: v.number(),
     completedAt: v.string(),
-  }),
+  }).index("by_user", ["userId"]),
 
   progress: defineTable({
-    username: v.string(),
+    userId: v.string(),
     day: v.number(),
     completed: v.boolean(),
-  }),
+  }).index("by_user", ["userId"]),
 });

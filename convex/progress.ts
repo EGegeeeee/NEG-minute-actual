@@ -3,13 +3,17 @@ import { mutation, query } from "./_generated/server";
 
 export const markCompleted = mutation({
   args: {
-    username: v.string(),
     day: v.number(),
   },
 
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) throw new Error("Not authenticated");
+
+    const userId = identity.subject;
+
     return await ctx.db.insert("progress", {
-      username: args.username,
+      userId,
       day: args.day,
       completed: true,
     });
@@ -17,15 +21,18 @@ export const markCompleted = mutation({
 });
 
 export const getCompletedDays = query({
-  args: {
-    username: v.string(),
-  },
+  args: {},
 
-  handler: async (ctx, args) => {
+  handler: async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) return [];
+
+    const userId = identity.subject;
+
     return await ctx.db
       .query("progress")
-      .filter((q) =>
-        q.eq(q.field("username"), args.username)
+      .withIndex("by_user", (q) =>
+        q.eq("userId", userId)
       )
       .collect();
   },

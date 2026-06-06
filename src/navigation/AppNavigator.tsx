@@ -10,12 +10,14 @@ import DayScreen from '../screens/DayScreen';
 import SessionScreen from '../screens/SessionScreen';
 import MeasureScreen from '../screens/MeasureScreen';
 import ResultScreen from '../screens/ResultScreen';
+import LoginScreen from '../screens/LoginScreen';
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   return (
     <NavigationContainer>
+        
       <Stack.Navigator
         initialRouteName="Welcome"
         screenOptions={{
@@ -31,6 +33,10 @@ export default function AppNavigator() {
           name="Signup"
           component={SignupScreen}
         />
+        <Stack.Screen
+  name="Login"
+  component={LoginScreen}
+/>
 
         <Stack.Screen
           name="Home"

@@ -6,28 +6,22 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useQuery } from 'convex/react';
-
 import { api } from '../../convex/_generated/api';
 import { exercises } from '../constants/exercises';
 
 export default function HomeScreen() {
   const navigation = useNavigation<any>();
 
+  // ✅ Get completed days for current logged-in user (via backend auth)
   const completedDays =
-    useQuery(api.progress.getCompletedDays, {
-      username: 'Setsen',
-    }) ?? [];
+    useQuery(api.progress.getCompletedDays) ?? [];
 
   const completedSet = new Set(
     completedDays.map((d: any) => d.day),
   );
 
   return (
-    <ScrollView
-      contentContainerStyle={{
-        padding: 20,
-      }}
-    >
+    <ScrollView contentContainerStyle={{ padding: 20 }}>
       <Text
         style={{
           fontSize: 28,
@@ -39,8 +33,7 @@ export default function HomeScreen() {
       </Text>
 
       {exercises.map((exercise) => {
-        const isCompleted =
-          completedSet.has(exercise.day);
+        const isCompleted = completedSet.has(exercise.day);
 
         const isUnlocked =
           exercise.day === 1 ||

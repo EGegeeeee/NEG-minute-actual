@@ -8,12 +8,16 @@ import {
   Alert,
 } from 'react-native';
 
-export default function SignupScreen({ navigation }: any) {
+export default function LoginScreen({
+  navigation,
+}: any) {
   const { signIn } = useAuthActions();
 
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState(''); // still UI only
-  const [password, setPassword] = useState('');
+  const [email, setEmail] =
+    useState('');
+
+  const [password, setPassword] =
+    useState('');
 
   return (
     <View
@@ -23,8 +27,14 @@ export default function SignupScreen({ navigation }: any) {
         padding: 24,
       }}
     >
-      <Text style={{ fontSize: 32, fontWeight: 'bold', marginBottom: 24 }}>
-        Create Account
+      <Text
+        style={{
+          fontSize: 32,
+          fontWeight: 'bold',
+          marginBottom: 24,
+        }}
+      >
+        Login
       </Text>
 
       <TextInput
@@ -32,39 +42,42 @@ export default function SignupScreen({ navigation }: any) {
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
-        style={{ borderWidth: 1, padding: 12, marginBottom: 12 }}
+        style={{
+          borderWidth: 1,
+          padding: 12,
+          marginBottom: 12,
+        }}
       />
 
       <TextInput
-        placeholder="Username (UI only for now)"
-        value={username}
-        onChangeText={setUsername}
-        autoCapitalize="none"
-        style={{ borderWidth: 1, padding: 12, marginBottom: 12 }}
-      />
-
-      <TextInput
-        placeholder="Password (use strong one like Test12345)"
+        placeholder="Password"
         secureTextEntry
         value={password}
         onChangeText={setPassword}
-        style={{ borderWidth: 1, padding: 12, marginBottom: 20 }}
+        style={{
+          borderWidth: 1,
+          padding: 12,
+          marginBottom: 20,
+        }}
       />
 
       <Pressable
         onPress={async () => {
           try {
             await signIn('password', {
-              flow: 'signUp',
+              flow: 'signIn',
               email,
               password,
             });
 
-            navigation.replace('Home');
+            navigation.replace(
+              'Home'
+            );
           } catch (error: any) {
-            console.log('SIGNUP ERROR', error);
-
-            Alert.alert('Signup Failed', String(error));
+            Alert.alert(
+              'Login Failed',
+              String(error)
+            );
           }
         }}
         style={{
@@ -73,7 +86,7 @@ export default function SignupScreen({ navigation }: any) {
           alignItems: 'center',
         }}
       >
-        <Text>Create Account</Text>
+        <Text>Login</Text>
       </Pressable>
     </View>
   );
