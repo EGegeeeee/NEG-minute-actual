@@ -60,7 +60,7 @@ export default function ResultScreen({
           marginBottom: 12,
         }}
       >
-        STEP 4 OF 4
+        СҮҮЛИЙН АЛХАM
       </Text>
 
       <Text
@@ -72,7 +72,7 @@ export default function ResultScreen({
           marginBottom: 40,
         }}
       >
-        RESULTS
+        ҮР ДҮН 
       </Text>
 
       <View
@@ -101,7 +101,7 @@ export default function ResultScreen({
               letterSpacing: 1,
             }}
           >
-            PRE BPM
+            ӨМНӨХ ЗҮРХНИЙ ЦОХИЛТ
           </Text>
 
           <Text
@@ -135,7 +135,7 @@ export default function ResultScreen({
               letterSpacing: 1,
             }}
           >
-            POST BPM
+            ДАРААХ ЗҮРХНИЙ ЦОХИЛТ
           </Text>
 
           <Text
@@ -170,7 +170,7 @@ export default function ResultScreen({
             letterSpacing: 2,
           }}
         >
-          RECOVERY CHANGE
+          ДАРААХ ЗҮРХНИЙ ЦОХИЛТ
         </Text>
 
         <Text
@@ -190,7 +190,7 @@ export default function ResultScreen({
             marginTop: 8,
           }}
         >
-          BPM Difference
+          ЗҮРХНИЙ ЦОХИЛТЫН ӨӨРЧЛӨЛТ
         </Text>
       </View>
 
@@ -210,7 +210,7 @@ export default function ResultScreen({
             fontWeight: '900',
           }}
         >
-          SAVE SESSION
+           ДАСГАЛ ХАДГАЛАХ
         </Text>
       </Pressable>
     </View>

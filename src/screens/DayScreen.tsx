@@ -33,7 +33,7 @@ export default function DayScreen({
             fontSize: 18,
           }}
         >
-          Exercise not found
+          ДАСГАЛ ОЛДООГҮЙ
         </Text>
       </View>
     );
@@ -58,7 +58,7 @@ export default function DayScreen({
           marginBottom: 12,
         }}
       >
-        DAY {day} OF 30
+         {day}-Р ӨДӨР
       </Text>
 
       <View
@@ -121,7 +121,7 @@ export default function DayScreen({
               letterSpacing: 1,
             }}
           >
-            WORKOUT DURATION
+            ДАСГАЛЫН ХУГАЦАА
           </Text>
 
           <Text
@@ -140,7 +140,7 @@ export default function DayScreen({
               color: '#FFF',
             }}
           >
-            Seconds
+            Секунд
           </Text>
         </View>
 
@@ -165,7 +165,7 @@ export default function DayScreen({
               fontWeight: '900',
             }}
           >
-            START SESSION
+            ЭХЛЭХ
           </Text>
         </Pressable>
       </View>

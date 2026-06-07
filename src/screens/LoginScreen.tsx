@@ -46,7 +46,7 @@ export default function LoginScreen({
             marginBottom: 8,
           }}
         >
-          NEG MINUTE
+          NEG MИНУТ
         </Text>
 
         <Text
@@ -55,9 +55,10 @@ export default function LoginScreen({
             textAlign: 'center',
             marginBottom: 32,
             fontSize: 16,
+            fontWeight: '700',
           }}
         >
-          Welcome back
+          Тавтай морил!
         </Text>
 
         <Text
@@ -69,7 +70,7 @@ export default function LoginScreen({
             marginBottom: 8,
           }}
         >
-          EMAIL
+          MЭЙЛ
         </Text>
 
         <TextInput
@@ -99,7 +100,7 @@ export default function LoginScreen({
             marginBottom: 8,
           }}
         >
-          PASSWORD
+          НУУЦ ҮГ
         </Text>
 
         <TextInput
@@ -153,7 +154,7 @@ export default function LoginScreen({
               fontWeight: '900',
             }}
           >
-            LOGIN
+            НЭВТРЭХ
           </Text>
         </Pressable>
 
@@ -172,7 +173,7 @@ export default function LoginScreen({
               fontWeight: '700',
             }}
           >
-            Don't have an account? Create one
+            Бүртгэлгүй юу? Бүртгүүлээрэй
           </Text>
         </Pressable>
       </View>

@@ -32,21 +32,20 @@ export default function WelcomeScreen({
             marginBottom: 12,
           }}
         >
-          NEG MINUTE
+          NEG MИНУТ
         </Text>
 
         <Text
           style={{
             fontSize: 18,
+            fontWeight: '700',
             color: '#FFF',
             textAlign: 'center',
             lineHeight: 28,
             maxWidth: 320,
           }}
         >
-          Build a stronger body and track
-          your heart recovery in just
-          one minute a day.
+          MИНУТ MИНУТААР ХӨГЖИХЭД БЭЛЭН ҮҮ?
         </Text>
       </View>
 
@@ -78,7 +77,7 @@ export default function WelcomeScreen({
               fontWeight: '900',
             }}
           >
-            CREATE ACCOUNT
+            БҮРТГЭЛ ҮҮСГЭХ
           </Text>
         </Pressable>
 
@@ -102,7 +101,7 @@ export default function WelcomeScreen({
               fontWeight: '700',
             }}
           >
-            LOG IN
+            НЭВТРЭХ
           </Text>
         </Pressable>
       </View>
@@ -116,7 +115,7 @@ export default function WelcomeScreen({
           letterSpacing: 1,
         }}
       >
-        DAILY • 1 MINUTE • 30 DAYS
+        ӨДӨР БҮТ • 1 MИНУТ • 30 ӨДӨР
       </Text>
     </View>
   );

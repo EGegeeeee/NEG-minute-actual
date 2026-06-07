@@ -64,6 +64,7 @@ export default function MeasureScreen({
   ]);
 
   return (
+    
     <View
       style={{
         flex: 1,
@@ -107,8 +108,8 @@ export default function MeasureScreen({
             }}
           >
             {phase === 'pre'
-              ? 'STEP 1 OF 4'
-              : 'STEP 3 OF 4'}
+              ? 'ЭХНИЙ АЛХАM'
+              : 'ГУРАВДАХ АЛХАM'}
           </Text>
 
           <Text
@@ -120,8 +121,8 @@ export default function MeasureScreen({
             }}
           >
             {phase === 'pre'
-              ? 'PRE MEASUREMENT'
-              : 'POST MEASUREMENT'}
+              ? 'ДАСГАЛЫН ӨМНӨХ ХЭМЖИЛТ'
+              : 'ДАСГАЛЫН ДАРААХ ХЭМЖИЛТ'}
           </Text>
 
           <Text
@@ -133,9 +134,9 @@ export default function MeasureScreen({
               lineHeight: 24,
             }}
           >
-            Place your finger over the
+            ХУРУУГААРАА КАMЕР БОЛОН ФЛАШИЙГ БҮРЭН ХААГААРАЙ{'\n'}
             {'\n'}
-            camera and flash
+            Дараа нь START товчийг дарж, 15 секунд хүлээгээрэй
           </Text>
         </View>
 
@@ -180,7 +181,7 @@ export default function MeasureScreen({
                   fontWeight: '600',
                 }}
               >
-                Measuring...
+                ХЭМЖИЛТ ХИЙЖ БАЙНА...
               </Text>
             </>
           ) : (
@@ -193,9 +194,10 @@ export default function MeasureScreen({
                   marginBottom: 24,
                 }}
               >
-                Ready to begin your
+                ХЭМЖИЛТ ЭХЛҮҮЛЭХЭД БЭЛЭН
                 {'\n'}
-                heart rate measurement
+                ЭХЛЭХ товчийг дарна уу
+             
               </Text>
 
               <Pressable
@@ -220,17 +222,17 @@ export default function MeasureScreen({
                   }}
                 >
                   START {phase === 'pre'
-                    ? 'PRE'
-                    : 'POST'} MEASUREMENT
+                    ? 'ӨMНӨХ'
+                    : 'ДАРААХ'} MEASUREMENT
                 </Text>
               </Pressable>
             </>
           )}
         </View>
-
         {/* Bottom spacer */}
         <View />
       </View>
     </View>
+    
   );
 }

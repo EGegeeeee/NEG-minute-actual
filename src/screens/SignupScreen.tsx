@@ -42,7 +42,7 @@ export default function SignupScreen({ navigation }: any) {
             marginBottom: 8,
           }}
         >
-          NEG MINUTE
+          NEG MИНУТ
         </Text>
 
         <Text
@@ -53,7 +53,7 @@ export default function SignupScreen({ navigation }: any) {
             fontSize: 16,
           }}
         >
-          Create your account
+          БҮРТГЭЛ ҮҮСГЭХ
         </Text>
 
         <Text
@@ -65,7 +65,7 @@ export default function SignupScreen({ navigation }: any) {
             marginBottom: 8,
           }}
         >
-          EMAIL
+          MЭЙЛ
         </Text>
 
         <TextInput
@@ -95,7 +95,7 @@ export default function SignupScreen({ navigation }: any) {
             marginBottom: 8,
           }}
         >
-          USERNAME
+          НЭВТРЭХ НЭР
         </Text>
 
         <TextInput
@@ -125,7 +125,7 @@ export default function SignupScreen({ navigation }: any) {
             marginBottom: 8,
           }}
         >
-          PASSWORD
+          НУУЦ ҮГ
         </Text>
 
         <TextInput
@@ -179,7 +179,7 @@ export default function SignupScreen({ navigation }: any) {
               fontSize: 16,
             }}
           >
-            CREATE ACCOUNT
+            БҮРТГЭЛ ҮҮСГЭХ
           </Text>
         </Pressable>
 
@@ -198,7 +198,7 @@ export default function SignupScreen({ navigation }: any) {
               fontWeight: '700',
             }}
           >
-            Already have an account? Sign In
+            Аль хэдийн бүртгэлтэй байна уу? Нэвтрэх
           </Text>
         </Pressable>
       </View>

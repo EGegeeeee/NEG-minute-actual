@@ -42,7 +42,7 @@ export default function HomeScreen() {
           textAlign: 'center',
         }}
       >
-        NEG MINUTE
+        NEG MИНУТ
       </Text>
 
       <Text
@@ -55,8 +55,7 @@ export default function HomeScreen() {
           lineHeight: 24,
         }}
       >
-        Measure how quickly your heart
-        recovers after exercise.
+        Дасгалынхаа явцыг хянаж, илүү хүчтэй бие бялдартай болоорой. Зөвхөн өдөрт нэг минут зарцуулна.
       </Text>
 
       {/* Progress */}
@@ -98,7 +97,7 @@ export default function HomeScreen() {
             color: '#FFF',
           }}
         >
-          Days Completed
+          Өдөр Дуусгагдсан
         </Text>
       </View>
 
@@ -147,7 +146,7 @@ export default function HomeScreen() {
       fontWeight: '800',
     }}
   >
-    Day {exercise.day}
+    {exercise.day}-Р ӨДӨР
   </Text>
 
   <Text
