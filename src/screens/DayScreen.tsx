@@ -22,11 +22,19 @@ export default function DayScreen({
       <View
         style={{
           flex: 1,
+          backgroundColor: '#000',
           justifyContent: 'center',
           alignItems: 'center',
         }}
       >
-        <Text>Exercise not found</Text>
+        <Text
+          style={{
+            color: '#FFF',
+            fontSize: 18,
+          }}
+        >
+          Exercise not found
+        </Text>
       </View>
     );
   }
@@ -35,61 +43,132 @@ export default function DayScreen({
     <View
       style={{
         flex: 1,
+        backgroundColor: '#000',
         justifyContent: 'center',
         padding: 24,
       }}
     >
       <Text
         style={{
-          fontSize: 18,
-          marginBottom: 10,
+          color: '#666',
+          fontSize: 12,
+          fontWeight: '700',
+          letterSpacing: 2,
+          textAlign: 'center',
+          marginBottom: 12,
         }}
       >
-        DAY {day}
+        DAY {day} OF 30
       </Text>
 
-      <Text
+      <View
         style={{
-          fontSize: 28,
-          fontWeight: 'bold',
-          marginBottom: 16,
-        }}
-      >
-        {exercise.title}
-      </Text>
-
-      <Text
-        style={{
-          fontSize: 18,
-          marginBottom: 20,
-        }}
-      >
-        {exercise.description}
-      </Text>
-
-      <Text
-        style={{
-          marginBottom: 30,
-        }}
-      >
-        Duration: {exercise.duration}s
-      </Text>
-
-      <Pressable
-        onPress={() =>
-          navigation.navigate('Measure', {
-            day: exercise.day,
-            phase: 'pre',
-          })
-        }
-        style={{
-          padding: 16,
+          backgroundColor: '#111',
+          borderRadius: 28,
+          padding: 28,
           borderWidth: 1,
-          alignItems: 'center',
+          borderColor: '#222',
         }}
       >
-        <Text>Start Session</Text>
-      </Pressable>
+        <Text
+          style={{
+            color: '#F5B800',
+            fontSize: 36,
+            fontWeight: '900',
+            textAlign: 'center',
+            marginBottom: 24,
+          }}
+        >
+          {exercise.title}
+        </Text>
+
+        <Text
+          style={{
+            fontSize: 64,
+            textAlign: 'center',
+            marginBottom: 20,
+          }}
+        >
+          💪
+        </Text>
+
+        <Text
+          style={{
+            color: '#FFF',
+            fontSize: 16,
+            lineHeight: 26,
+            textAlign: 'center',
+            marginBottom: 24,
+          }}
+        >
+          {exercise.description}
+        </Text>
+
+        <View
+          style={{
+            backgroundColor: '#1A1A1A',
+            borderRadius: 18,
+            padding: 18,
+            marginBottom: 28,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: '#666',
+              fontSize: 12,
+              fontWeight: '700',
+              letterSpacing: 1,
+            }}
+          >
+            WORKOUT DURATION
+          </Text>
+
+          <Text
+            style={{
+              color: '#F5B800',
+              fontSize: 42,
+              fontWeight: '900',
+              marginTop: 6,
+            }}
+          >
+            {exercise.duration}
+          </Text>
+
+          <Text
+            style={{
+              color: '#FFF',
+            }}
+          >
+            Seconds
+          </Text>
+        </View>
+
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Measure', {
+              day: exercise.day,
+              phase: 'pre',
+            })
+          }
+          style={{
+            backgroundColor: '#F5B800',
+            paddingVertical: 18,
+            borderRadius: 18,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 16,
+              fontWeight: '900',
+            }}
+          >
+            START SESSION
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

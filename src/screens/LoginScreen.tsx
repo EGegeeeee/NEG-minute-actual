@@ -23,71 +23,159 @@ export default function LoginScreen({
     <View
       style={{
         flex: 1,
+        backgroundColor: '#000',
         justifyContent: 'center',
         padding: 24,
       }}
     >
-      <Text
+      <View
         style={{
-          fontSize: 32,
-          fontWeight: 'bold',
-          marginBottom: 24,
+          backgroundColor: '#111',
+          borderRadius: 28,
+          padding: 28,
+          borderWidth: 1,
+          borderColor: '#222',
         }}
       >
-        Login
-      </Text>
+        <Text
+          style={{
+            color: '#F5B800',
+            fontSize: 40,
+            fontWeight: '900',
+            textAlign: 'center',
+            marginBottom: 8,
+          }}
+        >
+          NEG MINUTE
+        </Text>
 
-      <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-        style={{
-          borderWidth: 1,
-          padding: 12,
-          marginBottom: 12,
-        }}
-      />
+        <Text
+          style={{
+            color: '#FFF',
+            textAlign: 'center',
+            marginBottom: 32,
+            fontSize: 16,
+          }}
+        >
+          Welcome back
+        </Text>
 
-      <TextInput
-        placeholder="Password"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-        style={{
-          borderWidth: 1,
-          padding: 12,
-          marginBottom: 20,
-        }}
-      />
+        <Text
+          style={{
+            color: '#666',
+            fontSize: 12,
+            fontWeight: '700',
+            letterSpacing: 1,
+            marginBottom: 8,
+          }}
+        >
+          EMAIL
+        </Text>
 
-      <Pressable
-        onPress={async () => {
-          try {
-            await signIn('password', {
-              flow: 'signIn',
-              email,
-              password,
-            });
+        <TextInput
+          placeholder="Enter email"
+          placeholderTextColor="#666"
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+          style={{
+            backgroundColor: '#1A1A1A',
+            color: '#FFF',
+            borderRadius: 16,
+            paddingHorizontal: 16,
+            paddingVertical: 16,
+            borderWidth: 1,
+            borderColor: '#222',
+            marginBottom: 20,
+          }}
+        />
 
-            navigation.replace(
-              'Home'
-            );
-          } catch (error: any) {
-            Alert.alert(
-              'Login Failed',
-              String(error)
-            );
+        <Text
+          style={{
+            color: '#666',
+            fontSize: 12,
+            fontWeight: '700',
+            letterSpacing: 1,
+            marginBottom: 8,
+          }}
+        >
+          PASSWORD
+        </Text>
+
+        <TextInput
+          placeholder="Enter password"
+          placeholderTextColor="#666"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+          style={{
+            backgroundColor: '#1A1A1A',
+            color: '#FFF',
+            borderRadius: 16,
+            paddingHorizontal: 16,
+            paddingVertical: 16,
+            borderWidth: 1,
+            borderColor: '#222',
+            marginBottom: 28,
+          }}
+        />
+
+        <Pressable
+          onPress={async () => {
+            try {
+              await signIn('password', {
+                flow: 'signIn',
+                email,
+                password,
+              });
+
+              navigation.replace(
+                'Home'
+              );
+            } catch (error: any) {
+              Alert.alert(
+                'Login Failed',
+                String(error)
+              );
+            }
+          }}
+          style={{
+            backgroundColor: '#F5B800',
+            borderRadius: 18,
+            paddingVertical: 18,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: '#000',
+              fontSize: 16,
+              fontWeight: '900',
+            }}
+          >
+            LOGIN
+          </Text>
+        </Pressable>
+
+        <Pressable
+          onPress={() =>
+            navigation.navigate('Signup')
           }
-        }}
-        style={{
-          padding: 16,
-          borderWidth: 1,
-          alignItems: 'center',
-        }}
-      >
-        <Text>Login</Text>
-      </Pressable>
+          style={{
+            marginTop: 20,
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              color: '#F5B800',
+              fontWeight: '700',
+            }}
+          >
+            Don't have an account? Create one
+          </Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

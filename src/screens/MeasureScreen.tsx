@@ -3,6 +3,7 @@ import {
   View,
   Text,
   Pressable,
+  StyleSheet,
 } from 'react-native';
 
 import PPGCamera from '../components/PPGCamera';
@@ -34,12 +35,14 @@ export default function MeasureScreen({
         navigation.navigate('Session', {
           day,
           preBpm: fakeBpm,
+          measurementComplete: true,
         });
       } else {
         navigation.navigate('Result', {
           day,
           preBpm,
           postBpm: fakeBpm,
+          measurementComplete: true,
         });
       }
 
@@ -61,86 +64,173 @@ export default function MeasureScreen({
   ]);
 
   return (
-    <View style={{ flex: 1 }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: '#000',
+      }}
+    >
       <PPGCamera />
 
+      {/* Dark overlay */}
+      <View
+        style={{
+          ...StyleSheet.absoluteFill,
+          backgroundColor: 'rgba(0,0,0,0.45)',
+        }}
+      />
+
+      {/* Content */}
       <View
         style={{
           position: 'absolute',
           top: 80,
-          left: 20,
-          right: 20,
-          alignItems: 'center',
+          left: 24,
+          right: 24,
+          bottom: 40,
+          justifyContent: 'space-between',
         }}
       >
-        <Text
-          style={{
-            color: 'white',
-            fontSize: 22,
-            fontWeight: 'bold',
-          }}
-        >
-          {phase === 'pre'
-            ? 'PRE MEASUREMENT'
-            : 'POST MEASUREMENT'}
-        </Text>
-
-        <Text
-          style={{
-            color: 'white',
-            marginTop: 10,
-          }}
-        >
-          Place your finger over the camera and flash
-        </Text>
-      </View>
-
-      {!measuring ? (
-        <Pressable
-          onPress={() => {
-            setSecondsLeft(15);
-            setMeasuring(true);
-          }}
-          style={{
-            position: 'absolute',
-            bottom: 60,
-            left: 40,
-            right: 40,
-            padding: 16,
-            backgroundColor: 'white',
-            alignItems: 'center',
-            borderRadius: 12,
-          }}
-        >
-          <Text>
-            Start {phase === 'pre'
-              ? 'Pre'
-              : 'Post'} Measurement
-          </Text>
-        </Pressable>
-      ) : (
+        {/* Header */}
         <View
           style={{
-            position: 'absolute',
-            bottom: 60,
-            left: 40,
-            right: 40,
-            padding: 16,
-            backgroundColor: 'white',
             alignItems: 'center',
-            borderRadius: 12,
           }}
         >
           <Text
             style={{
-              fontSize: 32,
-              fontWeight: 'bold',
+              color: '#666',
+              fontSize: 12,
+              fontWeight: '700',
+              letterSpacing: 2,
+              marginBottom: 12,
             }}
           >
-            {secondsLeft}
+            {phase === 'pre'
+              ? 'STEP 1 OF 4'
+              : 'STEP 3 OF 4'}
+          </Text>
+
+          <Text
+            style={{
+              color: '#F5B800',
+              fontSize: 28,
+              fontWeight: '900',
+              textAlign: 'center',
+            }}
+          >
+            {phase === 'pre'
+              ? 'PRE MEASUREMENT'
+              : 'POST MEASUREMENT'}
+          </Text>
+
+          <Text
+            style={{
+              color: '#FFF',
+              marginTop: 16,
+              textAlign: 'center',
+              fontSize: 16,
+              lineHeight: 24,
+            }}
+          >
+            Place your finger over the
+            {'\n'}
+            camera and flash
           </Text>
         </View>
-      )}
+
+        {/* Center Card */}
+        <View
+          style={{
+            backgroundColor: 'rgba(17,17,17,0.92)',
+            borderRadius: 24,
+            padding: 32,
+            borderWidth: 1,
+            borderColor: '#222',
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 56,
+              marginBottom: 16,
+            }}
+          >
+            ❤️
+          </Text>
+
+          {measuring ? (
+            <>
+              <Text
+                style={{
+                  color: '#F5B800',
+                  fontSize: 100,
+                  fontWeight: '900',
+                  lineHeight: 110,
+                }}
+              >
+                {secondsLeft}
+              </Text>
+
+              <Text
+                style={{
+                  color: '#FFF',
+                  marginTop: 12,
+                  fontSize: 16,
+                  fontWeight: '600',
+                }}
+              >
+                Measuring...
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text
+                style={{
+                  color: '#FFF',
+                  fontSize: 18,
+                  textAlign: 'center',
+                  marginBottom: 24,
+                }}
+              >
+                Ready to begin your
+                {'\n'}
+                heart rate measurement
+              </Text>
+
+              <Pressable
+                onPress={() => {
+                  setSecondsLeft(15);
+                  setMeasuring(true);
+                }}
+                style={{
+                  backgroundColor: '#F5B800',
+                  paddingVertical: 16,
+                  paddingHorizontal: 32,
+                  borderRadius: 18,
+                  minWidth: 240,
+                  alignItems: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    color: '#000',
+                    fontSize: 16,
+                    fontWeight: '900',
+                  }}
+                >
+                  START {phase === 'pre'
+                    ? 'PRE'
+                    : 'POST'} MEASUREMENT
+                </Text>
+              </Pressable>
+            </>
+          )}
+        </View>
+
+        {/* Bottom spacer */}
+        <View />
+      </View>
     </View>
   );
 }

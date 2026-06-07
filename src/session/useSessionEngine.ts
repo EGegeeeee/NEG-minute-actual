@@ -24,7 +24,7 @@ export function useSessionEngine() {
 
     timerRef.current = setTimeout(() => {
       setState("EXERCISE");
-    }, 15000);
+    }, 60000);
   };
 
   // END EXERCISE → POST
